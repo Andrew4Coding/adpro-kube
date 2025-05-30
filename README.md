@@ -13,6 +13,8 @@ The log in the terminal doesn't change when i refresh the page several times:
 But, the log in the browser console does change, it shows current time and date:
 ![alt text](image-1.png)
 
+> Notice that there are two versions of `kubectl get` invocation during this tutorial  section. 13The first does not have any option, while the latter has `-n` option with  value set to `kube-system`. What is the purpose of the `-n` option and why did the  output not list the pods/services that you explicitly created?
+
 The `-n` option in kubectl commands is a crucial namespace specification parameter that determines which isolated environment within the Kubernetes cluster we want to interact with. When using kubectl without the `-n` option, it automatically targets the `default` namespace, which is where user-created resources typically reside unless specified otherwise. The `kube-system` namespace, accessed using `-n kube-system`, is a special namespace that Kubernetes reserves for system-level components such as CoreDNS, kube-proxy, and other critical cluster services. This separation of namespaces provides a clean organizational structure and helps prevent accidental modifications to system components by keeping them isolated from user workloads. The reason we don't see our created pods/services when using `-n kube-system` is because they exist in the `default` namespace, demonstrating how namespaces effectively partition cluster resources. This namespace isolation is a fundamental security and organization feature in Kubernetes that allows multiple teams or applications to coexist within the same cluster without interfering with each other.
 
 # Reflection on Rolling Update & Kubernetes Manifest File
